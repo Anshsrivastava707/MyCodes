@@ -1,6 +1,6 @@
 class Solution {
     private int graph[][];
-    private boolean visited[];
+    private boolean visited[]; 
     public int findCircleNum(int[][] isConnected) {
         graph=isConnected;
         int n=graph.length;
