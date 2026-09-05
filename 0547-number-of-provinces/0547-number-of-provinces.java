@@ -1,26 +1,40 @@
 class Solution {
-    private int graph[][];
-    private boolean visited[]; 
     public int findCircleNum(int[][] isConnected) {
-        graph=isConnected;
-        int n=graph.length;
-        visited=new boolean[n];
-        int procount=0;
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        int n=isConnected.length;
+
         for(int i=0;i<n;i++){
-            if(!visited[i]){
-                helper(i);
-                procount++;
+            adj.add(new ArrayList<>());
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j]==1 && i!=j){
+                    adj.get(i).add(j);
+                }
             }
         }
-        return procount;
-    }
-    private void helper(int city){
-        visited[city]=true;
-        
-        for(int i=0;i<graph.length;i++){
-            if(!visited[i] && graph[city][i]==1){
-                helper(i);
+
+            boolean visited[]=new boolean[n];
+            int provinces=0;
+
+            for(int i=0;i<n;i++){
+                if(!visited[i]){
+                    provinces++;
+                    dfs(i,adj,visited);
+                }
+            
+            }            
+            return provinces;
+        }
+
+        static void dfs(int node,ArrayList<ArrayList<Integer>> adj,boolean visited[]){
+            visited[node]=true;
+
+            for(int x:adj.get(node)){
+                if(!visited[x]){
+                    dfs(x,adj,visited);
+                }
             }
         }
     }
-}
