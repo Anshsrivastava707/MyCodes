@@ -10,10 +10,11 @@ class Solution {
         for(int i=nums.length-2;i>=0;i--){
             nums[i]=nums[i]+nums[i+1];
         }
-
+    System.gc();
         for(int i=0;i<nums.length;i++){
             if(prefix[i]==nums[i]) return i;
         }
         return -1;
+       
     }
 }
