@@ -1,22 +1,46 @@
+// class Solution {
+//     public int pivotIndex(int[] nums) {
+//         int n=nums.length;
+//         int prefix[]=new int[n];
+//         prefix[0]=nums[0];
+//         for(int i=1;i<n;i++){
+//             prefix[i]=nums[i]+prefix[i-1];
+//         }
+
+//         int suffix[]=new int[n];
+//         suffix[n-1]=nums[n-1];
+//         for(int i=n-2;i>=0;i--){
+//             suffix[i]=nums[i]+suffix[i+1];
+//         }
+
+//         for(int i=0;i<n;i++){
+//             if(prefix[i]==suffix[i]){
+//                 return i;
+//             }
+//         }
+//         return -1;
+//     }
+// }
+
+
 class Solution {
     public int pivotIndex(int[] nums) {
-        int n=nums.length;
-        int prefix[]=new int[n];
-        prefix[0]=nums[0];
-        for(int i=1;i<n;i++){
-            prefix[i]=nums[i]+prefix[i-1];
+        int tsum=0;
+        int lsum=0;
+
+        for(int num:nums){
+            tsum+=num;
         }
 
-        int suffix[]=new int[n];
-        suffix[n-1]=nums[n-1];
-        for(int i=n-2;i>=0;i--){
-            suffix[i]=nums[i]+suffix[i+1];
-        }
+        for(int i=0;i<nums.length;i++){
+            
+            int rsum=tsum-lsum-nums[i];
 
-        for(int i=0;i<n;i++){
-            if(prefix[i]==suffix[i]){
+            if(lsum==rsum){
                 return i;
             }
+
+            lsum+=nums[i];
         }
         return -1;
     }
