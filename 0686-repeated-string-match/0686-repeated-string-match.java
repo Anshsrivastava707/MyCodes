@@ -10,8 +10,9 @@ class Solution {
             count++;
         }
 
-        String str = b + "$" + text.toString();
+        text.append(a);
 
+        String str = b + "$" + text;
         int n = str.length();
         int m = b.length();
 
@@ -23,14 +24,11 @@ class Solution {
         for (int i = 1; i < n; i++) {
 
             if (i <= right) {
-                zarr[i] = Math.min(right - i + 1,
-                    zarr[i - left]);
+                zarr[i] = Math.min(right - i + 1,zarr[i - left]);
             }
 
             while (i + zarr[i] < n &&
-                   str.charAt(zarr[i]) ==
-                   str.charAt(i + zarr[i])) {
-
+                   str.charAt(zarr[i])==str.charAt(i + zarr[i])) {
                 zarr[i]++;
             }
 
@@ -40,42 +38,17 @@ class Solution {
             }
 
             if (zarr[i] == m) {
-                return count;
-            }
-        }
-        text.append(a);
 
-        str = b + "$" + text.toString();
+                int start = i - m - 1;
 
-        n = str.length();
-        zarr = new int[n];
+                if (start + m <= count * a.length()) {
+                    return count;
+                }
 
-        left = 0;
-        right = 0;
-
-        for (int i = 1; i < n; i++) {
-
-            if (i <= right) {
-                zarr[i] = Math.min(right - i + 1,
-                                   zarr[i - left]);
-            }
-
-            while (i + zarr[i] < n &&
-                   str.charAt(zarr[i]) ==
-                   str.charAt(i + zarr[i])) {
-
-                zarr[i]++;
-            }
-
-            if (i + zarr[i] - 1 > right) {
-                left = i;
-                right = i + zarr[i] - 1;
-            }
-
-            if (zarr[i] == m) {
                 return count + 1;
             }
         }
+
         return -1;
     }
 }
