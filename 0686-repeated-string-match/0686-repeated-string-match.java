@@ -10,7 +10,6 @@ class Solution {
             count++;
         }
 
-        // We need to check count copies
         String str = b + "$" + text.toString();
 
         int n = str.length();
